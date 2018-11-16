@@ -37,4 +37,5 @@ After implementing the views with their URLs and completing the `templates/index
 <img src="https://user-images.githubusercontent.com/2788551/48636673-51bf3e00-e9aa-11e8-8e2f-71e7f332d2b7.png " width="50%" height="50%">
 
 Remember to validate inside the view that all the model's required fields have been sent from the template form.
+
 Just as a hint, notice that all data sent by a POST method from a form is type 'string'. So for example in the view, you will have the convert the `popularity` that you receive in `request.POST` from a string to an integer, which is the type that the model is asking for when you try to save it.
