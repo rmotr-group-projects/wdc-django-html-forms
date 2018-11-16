@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" data-framework="jquery">
+<head>
+  <style media="screen">
+    .completed{
+      text-decoration: line-through;
+    }
+    form.inline{
+      display: inline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Create Song form -->
+  <h3>Add a new Song</h3>
+  <form action="{% url 'create_song' %}" method='POST'>
+    {% csrf_token %}
+    <div>
+      Title: <input type="text" name='title'> *
+    </div>
+    <div>
+      Album name: <input type="text" name='album_name'>
+    </div>
+    <div>
+      Artist:
+      <select name='artist_id'>
+        {% for artist in artists %}
+          <option value="{{artist.id}}">{{artist.artistic_name}}</option>
+        {% endfor %}
+      </select> *
+    </div>
+    <br>
+    <div>
+        <i>Note: inputs with "*" symbol are required.</i>
+    </div>
+    <input type="submit" value="Add Song">
+  </form>
+  <hr>
+
+  <!-- Create Artist form -->
+  <h3>Add a new Artist</h3>
+  <form action="{% url 'create_artist' %}" method='POST'>
+    {% csrf_token %}
+    <div>
+      Artistic name: <input type="text" name='artistic_name'> *
+    </div>
+    <div>
+      First name: <input type="text" name='first_name'>
+    </div>
+    <div>
+      Last name: <input type="text" name='last_name'>
+    </div>
+    <div>
+      Picture url: <input type="url" name='picture_url'>
+    </div>
+    <div>
+      Popularity: <input type="number" min="0" max="100" value="0" name='popularity'>
+    </div>
+    <div>
+      Genre: <input type="text" name='genre'>
+    </div>
+    <br>
+    <div>
+        <i>Note: inputs with "*" symbol are required.</i>
+    </div>
+    <input type="submit" value="Add Artist">
+  </form>
+  <hr>
+
+  <!-- List of Artists with their Songs -->
+  <h1>List of Artists</h1>
+  <ul>
+    {% for artist in artists %}
+      <li>
+        <label>{{ artist.artistic_name }}</label>
+        <!-- Form for deleting an Artist -->
+        <form action="{% url 'delete_artist' %}" method='POST' class='inline'>
+          {% csrf_token %}
+          <input type="hidden" name="artist_id" value="{{ artist.id }}">
+          <input type="submit" name='delete_artist' value='Delete'>
+        </form>
+        <ul>
+          {% for song in artist.song_set.all %}
+            <li>
+              {{song.title}} (<i>Album: {{song.album_name}}</i>)
+              <!-- Form for deleting a Song -->
+              <form action="{% url 'delete_song' %}" method='POST' class='inline'>
+                {% csrf_token %}
+                <input type="hidden" name="song_id" value="{{ song.id }}">
+                <input type="submit" name='delete_song' value='Delete'>
+              </form>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
