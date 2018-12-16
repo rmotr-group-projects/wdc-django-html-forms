@@ -39,9 +39,21 @@
 
   <!-- Create Artist form -->
   <h3>Add a new Artist</h3>
-  <form action="" method='POST'> <!--  Add propper URL in form's action -->
+  <form action="{% url 'create_artist' %}" method='POST'>
     {% csrf_token %}
-    <!-- Add here the fields for the 'Add Artist' form -->
+    <div>
+      Artistic Name: <input type = 'text' name = 'artistic_name'> *<br><br>
+      First Name: <input type = 'text' name = 'first_name'><br><br>
+      Last Name: <input type = 'text' name = 'last_name'><br><br>
+      Picture URL: <input type = 'url' name = 'picture_url'><br><br>
+      Popularity: <input type = 'number' name = 'popularity' min = '0' max = '100'><br><br>
+      Genre: <input type = 'text' name = 'genre'>
+    </div>
+    <br>
+    <div>
+      <i> Note: inputs with "*" symbol are required.</i>
+    </div>
+    <input type="submit" value="Add Artist">
   </form>
   <hr>
 
@@ -52,9 +64,10 @@
       <li>
         <label>{{ artist.artistic_name }}</label>
         <!-- Form for deleting an Artist -->
-        <form action="" method='POST' class='inline'> <!--  Add propper URL in form's action -->
+        <form action="{% url 'delete_artist' %}" method='POST' class='inline'>
           {% csrf_token %}
-          <!-- Add here the fields for the 'Delete Artist' form -->
+          <input name = 'artist_id' type = 'hidden' value = '{{artist.id}}'>
+          <input name = 'delete_artist' type = 'submit' value = 'Delete'>
         </form>
         <ul>
           {% for song in artist.song_set.all %}
