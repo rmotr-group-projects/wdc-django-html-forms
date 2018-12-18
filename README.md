@@ -7,7 +7,7 @@
 The structure of the whole Django project is built for you. Run the following commands in order to have your local environment up and running.  
 
 ```bash
-$ mkvirtualenv -p $(which python3) django_html_forms
+$ mkvirtualenv -p $(which python3.5) django_html_forms
 $ pip install -r requirements.txt
 ```
 
