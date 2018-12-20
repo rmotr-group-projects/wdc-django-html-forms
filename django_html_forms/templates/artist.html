@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" data-framework="jquery">
+<head>
+  <style media="screen">
+    .completed{
+      text-decoration: line-through;
+    }
+    form.inline{
+      display: inline;
+    }
+  </style>
+</head>
+<body>
+  
+ <div>
+   <h2>{{ artist.artistic_name }}'s Profile:</h2>
+   <ul>
+     <li><b>First Name:</b> {{artist.first_name}}</li>
+     <li><b>Last Name:</b> {{artist.last_name}}</li>
+     <li><b>Popularity:</b> {{artist.popularity}} out of 100</li>
+     <li><a href="{% url 'artist_songs' artist.id %}">List of Songs</a></li>
+   </ul>
+ </div>
+</body>
+</html>

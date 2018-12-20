@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" data-framework="jquery">
+<head>
+  <style media="screen">
+    .completed{
+      text-decoration: line-through;
+    }
+    form.inline{
+      display: inline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- List of Artists with their Songs -->
+  <h1>Here's a list of Artists:</h1>
+  <ul>
+    {% for artist in artists %}
+      <li>
+      <span><a href="{% url 'artist' artist.id %}">{{ artist.artistic_name }}</a><span style="font-style: italic"> (Popularity: {{artist.popularity}})</span></span>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

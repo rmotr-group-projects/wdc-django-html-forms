@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-framework="jquery">
+<head>
+  <style media="screen">
+    .completed{
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+ 
+
+  <!-- List of Artists with their Songs -->
+  <h1>List of Songs</h1>
+  <ul>
+    {% for artist in artists %}
+        
+          {% for song in artist.song_set.all %}
+            <li>
+              {{song.title}} (<i>Album: {{song.album_name}}</i>) - (<i>Artist: <a href="{% url 'artist' song.artist.id %}">{{song.artist.artistic_name}}</a></i>)
+            </li>
+          {% endfor %}
+        
+    {% endfor %}
+    </ul>
+</body>
+</html>

@@ -27,4 +27,7 @@ urlpatterns = [
     ##################
     # Your URLs here #
     ##################
+    path('artist/<int:artist_id>', views.artist, name='artist'),
+    path('artist/<int:artist_id>/songs', views.artist_songs, name='artist_songs'),
+    path('songs', views.list_songs, name='list_songs'),
 ]
