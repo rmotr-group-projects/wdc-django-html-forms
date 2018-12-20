@@ -12,7 +12,8 @@ def artists(request):
 def create_song(request):
     artist_id = request.POST['artist_id']
     title = request.POST['title']
-    album_name = request.POST.get('album_name', '')
+    # album_name = request.POST.get('album_name', '')
+    album_name = request.POST['album_name']
 
     # validate required fields
     if not artist_id or not title:
@@ -38,8 +39,28 @@ def delete_song(request):
 
 
 def create_artist(request):
-    pass
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    artistic_name = request.POST['artistic_name']
+    picture_url = request.POST['picture_url']
+    popularity = request.POST['popularity']
+    genre = request.POST['genre']
+    
+    # validate required fields
+    if not first_name or not last_name or not artistic_name:
+        return redirect('artists')
+    
+    popularity = int(popularity)
+    
+    Artist.objects.create(first_name=first_name, last_name=last_name, artistic_name=artistic_name, picture_url=picture_url, popularity=int(popularity), genre=genre)
+    return redirect('artists')
 
 
 def delete_artist(request):
-    pass
+    artist_id = request.POST['artist_id']
+    try:
+        artist = Artist.objects.get(id=artist_id)
+    except Artist.DoesNotExist:
+        return HttpResponseNotFound()
+    artist.delete()
+    return redirect('artists')

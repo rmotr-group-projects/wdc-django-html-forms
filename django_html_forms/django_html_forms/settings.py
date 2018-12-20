@@ -25,7 +25,7 @@ SECRET_KEY = '*-cn=pbvyer@yhv$^&0r9ls(3)1)rulte*^$hn*pgu&lk@ifxy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-html-forms-beatsbyjaydee.c9users.io']
 
 
 # Application definition
