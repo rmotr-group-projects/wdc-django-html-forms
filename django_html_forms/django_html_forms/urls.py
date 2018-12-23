@@ -15,16 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
-from artists import views
-
+from artists.views import (
+    artists,
+    create_song,
+    delete_song,
+    create_artist,
+    delete_artist
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('artists/', views.artists, name='artists'),
-    path('create-song/', views.create_song, name='create_song'),
-    path('delete-song/', views.delete_song, name='delete_song'),
-    ##################
-    # Your URLs here #
-    ##################
+    path('artists/', artists, name='artists'),
+    path('create-song/', create_song, name='create_song'),
+    path('delete-song/', delete_song, name='delete_song'),
+    path('create-artist/', create_artist, name="create_artist"),
+    path('delete-artist/', delete_artist, name="delete_artist")
 ]
