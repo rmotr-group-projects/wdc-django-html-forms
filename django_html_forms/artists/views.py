@@ -73,4 +73,4 @@ def delete_artist(request):
     if request.method == 'POST':
         artist.delete()
         return redirect('artists')
-    return render(request, "index")
+    return render(request, "index.html")
