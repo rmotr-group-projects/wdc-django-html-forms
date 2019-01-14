@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotFound
 
 from .models import Artist, Song
@@ -10,9 +10,13 @@ def artists(request):
 
 
 def create_song(request):
-    artist_id = request.POST['artist_id']
-    title = request.POST['title']
-    album_name = request.POST.get('album_name', '')
+    # Generally ,
+    # is a way to fetch a value while providing a default if it does not exist.
+    # my_var = dict.get(<key>, <default>)
+
+    artist_id = request.POST.get('artist_id', False)
+    title = request.POST.get('title', False)
+    album_name = request.POST.get('album_name', False)
 
     # validate required fields
     if not artist_id or not title:
@@ -38,8 +42,35 @@ def delete_song(request):
 
 
 def create_artist(request):
-    pass
+    if request.method == 'POST':
+        artistic_name = request.POST['artistic_name']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        picture_url = request.POST['picture_url']
+        popularity = request.POST['popularity']
+        genre = request.POST.get('genre', False)
+
+        if artistic_name and first_name and last_name and picture_url and popularity and genre:
+            artist = Artist()
+            artist.artistic_name = artistic_name
+            artist.first_name = first_name
+            artist.last_name = last_name
+            artist.picture_url = picture_url
+            artist.popularity = int(popularity)
+            artist.genre = genre
+            #   print(artist.genre)
+            artist.save()
+            return redirect('artists')
+        return render(request, "index.html", {'error': 'All fields are Required'})
+    return render(request, "index.html")
 
 
 def delete_artist(request):
-    pass
+    artist_id = request.POST.get('artist_id', False)
+    artist = get_object_or_404(Artist, id=artist_id)
+
+    # confirm delete for POST request
+    if request.method == 'POST':
+        artist.delete()
+        return redirect('artists')
+    return render(request, "index.html")
