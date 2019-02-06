@@ -24,7 +24,7 @@ urlpatterns = [
     path('artists/', views.artists, name='artists'),
     path('create-song/', views.create_song, name='create_song'),
     path('delete-song/', views.delete_song, name='delete_song'),
-    ##################
-    # Your URLs here #
-    ##################
+
+    path('create_artist/', views.create_artist, name='create_artist'),
+    path('delete_artist/<int:artist_id>/', views.delete_artist, name='delete_artist'),
 ]
