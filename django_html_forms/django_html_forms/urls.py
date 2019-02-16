@@ -27,4 +27,8 @@ urlpatterns = [
     ##################
     # Your URLs here #
     ##################
+    path('create-artist/', views.create_artist, name='create_artist'),
+    path('delete-artist/', views.delete_artist, name='delete_artist'),
 ]
+
+# create artist and detele artist are added
