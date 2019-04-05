@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseNotFound
 
 from .models import Artist, Song
@@ -38,8 +38,31 @@ def delete_song(request):
 
 
 def create_artist(request):
-    pass
+    if request.POST:
+        if not request.POST['artistic_name']:
+            redirect('artists')
+        
+        artistic_name = request.POST['artistic_name'],
+        first_name = request.POST['first_name'],
+        last_name = request.POST['last_name'],
+        picture_url = request.POST['picture_url'],
+        popularity = request.POST['popularity'],
+        genre = request.POST['genre']
+        popularity = int(popularity[0])
+       
+        Artist.objects.create(first_name=first_name,
+                                last_name=last_name,
+                                artistic_name=artistic_name,
+                                picture_url=picture_url,
+                                popularity=popularity,
+                                genre=genre)
+        
+    return redirect('artists')  
 
 
 def delete_artist(request):
-    pass
+    if request.POST:
+        artist_id = request.POST['artist_id']
+        artist = get_object_or_404(Artist,id=artist_id)
+        artist.delete()
+    return redirect('artists')
