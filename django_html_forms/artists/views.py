@@ -38,8 +38,24 @@ def delete_song(request):
 
 
 def create_artist(request):
-    pass
+    fields = ['artistic_name', 'first_name', 'last_name', 'picture_url',
+			'popularity', 'genre']
+    artist_data = {field:request.POST.get(field,'') for field in fields}
+    if not artist_data['artistic_name']:
+        return redirect('artists')
+	
+    if not artist_data['popularity']:
+        artist_data['popularity'] = 0 if not artist_data['popularity'] else int(artist_data['popularity']) 
+		
+    Artist.objects.create(**artist_data)
+    return redirect('artists')
 
 
 def delete_artist(request):
-    pass
+    artist_id = request.POST.get('artist_id')
+    try:
+        artist = Artist.objects.get(id=artist_id)
+    except Artist.DoesNotExist:
+        return HttpResponseNotFound()
+    artist.delete()
+    return redirect('artists')
