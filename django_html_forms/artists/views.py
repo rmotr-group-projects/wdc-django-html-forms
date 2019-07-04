@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404, Http404
+from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound
 
 from .models import Artist, Song
