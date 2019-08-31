@@ -38,8 +38,24 @@ def delete_song(request):
 
 
 def create_artist(request):
-    pass
+    artistic_name = request.POST['artistic_name']
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    picture_url = request.POST['picture_url']
+    popularity = request.POST['popularity']
+    popularity = int(popularity)
+    genre = request.POST['genre']
 
+    if not artistic_name:
+        return redirect('artists')
+    Artist.objects.create(first_name=first_name, last_name=last_name, artistic_name=artistic_name, picture_url=picture_url, popularity=popularity, genre=genre)
+    return redirect('artists')
 
 def delete_artist(request):
-    pass
+    artist_id = request.POST['artist_id']
+    try:
+        artist = Artist.objects.get(id=artist_id)
+    except Artist.DoesNotExist:
+        return HttpResponseNotFound()
+    artist.delete()
+    return redirect('artists')
